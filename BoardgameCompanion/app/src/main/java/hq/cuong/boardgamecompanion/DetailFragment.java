@@ -3,6 +3,7 @@ package hq.cuong.boardgamecompanion;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,9 @@ import hq.cuong.boardgamecompanion.models.BoardGame;
  */
 public class DetailFragment extends Fragment {
 
-    @BindView(R.id.wv_detail)
-    WebView wvDetail;
+//    @BindView(R.id.rv_board_games)
+////    WebView wvDetail;
+//    RecyclerView rvBoardGame;
 
     private BoardGame boardGame;
 
@@ -50,11 +52,13 @@ public class DetailFragment extends Fragment {
     }
 
     private void setupUI() {
-        WebViewClient webViewClient = new WebViewClient();
-        wvDetail.setWebViewClient(webViewClient);
-        wvDetail.getSettings().setJavaScriptEnabled(true);
-        String url = "https://drive.google.com/viewerng/viewer?embedded=true&url=" + boardGame.getDetailUrl();
-        wvDetail.loadUrl(url);
+//        WebViewClient webViewClient = new WebViewClient();
+//        wvDetail.setWebViewClient(webViewClient);
+//        wvDetail.getSettings().setJavaScriptEnabled(true);
+//        String url = "https://drive.google.com/viewerng/viewer?embedded=true&url=" + boardGame.getDetailUrl();
+//        wvDetail.loadUrl(url);
+
+
     }
 
 }
