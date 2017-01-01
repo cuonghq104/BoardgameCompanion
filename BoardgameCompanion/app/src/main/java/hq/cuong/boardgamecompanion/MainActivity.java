@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -23,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.fl_container)
     FrameLayout flContainer;
 
-    @BindView(R.id.tv_bgname)
-    TextView tvName;
+//    @BindView(R.id.tv_bgname)
+//    TextView tvName;
 
     @BindView(R.id.ll_root)
     LinearLayout llRoot;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         changeFragment(new BoardgameListFragment(), false);
     }
@@ -54,12 +55,14 @@ public class MainActivity extends AppCompatActivity {
 
         int boardgame = changeFragmentEvent.getBoardGame();
 
-        if (BoardGame.boardGames[boardgame].getDetailUrl() == null) {
+
+        if (BoardGame.boardGamesTemps.get(boardgame).getDetailUrl().equals("")) {
+            Toast.makeText(this, BoardGame.boardGamesTemps.get(boardgame).getDetailUrl(), Toast.LENGTH_SHORT).show();
             Snackbar snackbar = Snackbar.make(llRoot, "Đang phát triển", Snackbar.LENGTH_SHORT);
             snackbar.show();
             return;
         }
-        tvName.setText(BoardGame.boardGames[boardgame].getName());
+//        tvName.setText(BoardGame.boardGames[boardgame].getName());
 
         Bundle bundle = new Bundle();
 

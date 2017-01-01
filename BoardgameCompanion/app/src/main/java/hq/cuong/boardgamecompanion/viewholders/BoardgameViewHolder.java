@@ -12,7 +12,9 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import hq.cuong.boardgamecompanion.DetailFragment;
+import hq.cuong.boardgamecompanion.BoardGameFragment;
+import hq.cuong.boardgamecompanion.BoardGameInformationFragment;
+import hq.cuong.boardgamecompanion.RulesFragment;
 import hq.cuong.boardgamecompanion.events.ChangeFragmentEvent;
 import hq.cuong.boardgamecompanion.transforms.CircleTransform;
 import hq.cuong.boardgamecompanion.R;
@@ -43,15 +45,15 @@ public class BoardgameViewHolder extends RecyclerView.ViewHolder{
     public void bind(int position) {
         this.position = position;
 
-        BoardGame boardGame = BoardGame.boardGames[position];
+        BoardGame boardGame = BoardGame.boardGamesTemps.get(position);
 
-        tvName.setText(boardGame.getName());
+        tvName.setText(boardGame.getName().toUpperCase());
 
         Picasso.with(ivBoardGame.getContext()).load(boardGame.getImageUrl()).transform(new CircleTransform()).into(ivBoardGame);
     }
 
     @OnClick(R.id.iv_boardgame)
     public void changeDetailFragment() {
-        EventBus.getDefault().post(new ChangeFragmentEvent(new DetailFragment(), true, position));
+        EventBus.getDefault().post(new ChangeFragmentEvent(new BoardGameFragment(), true, position));
     }
 }

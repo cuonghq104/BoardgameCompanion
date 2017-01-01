@@ -1,9 +1,14 @@
 package hq.cuong.boardgamecompanion.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Cuong on 1/1/2017.
  */
 public class BoardGame {
+
+    public static int currentBoardGame;
 
     public static String BOARD_GAME = "boardgame";
 
@@ -13,10 +18,55 @@ public class BoardGame {
 
     private String detailUrl;
 
-    public BoardGame(String name, String imageUrl, String detailUrl) {
+    private String rulesUrl;
+
+    private String thumbUrl;
+
+    private int minPlayer;
+
+    private int maxPlayer;
+
+    private String favoritePlayer;
+
+    private int playingTime;
+
+    private String[] categories;
+
+    public BoardGame(String name, String imageUrl, String detailUrl, String rulesUrl, String thumbUrl, int minPlayer, int maxPlayer, String favoritePlayer, int playingTime, String[] categories) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.detailUrl = detailUrl;
+        this.rulesUrl = rulesUrl;
+        this.thumbUrl = thumbUrl;
+        this.minPlayer = minPlayer;
+        this.maxPlayer = maxPlayer;
+        this.favoritePlayer = favoritePlayer;
+        this.playingTime = playingTime;
+        this.categories = categories;
+    }
+
+    public String getThumbUrl() {
+        return thumbUrl;
+    }
+
+    public int getMinPlayer() {
+        return minPlayer;
+    }
+
+    public int getMaxPlayer() {
+        return maxPlayer;
+    }
+
+    public String getFavoritePlayer() {
+        return favoritePlayer;
+    }
+
+    public int getPlayingTime() {
+        return playingTime;
+    }
+
+    public String[] getCategories() {
+        return categories;
     }
 
     public String getName() {
@@ -31,11 +81,44 @@ public class BoardGame {
         return detailUrl;
     }
 
+//    "https://cf.geekdo-images.com/images/pic2016054_md.jpg",
+//            "https://view.publitas.com/p222-11815/coup/page/1",
     public static BoardGame[] boardGames = {
-            new BoardGame("COUP", "https://cf.geekdo-images.com/images/pic2016054_md.jpg", "https://view.publitas.com/p222-11815/coup/page/1"),
-            new BoardGame("UNO", "http://www.godisageek.com/wp-content/uploads/Uno-review1-1024x576.jpg", "https://view.publitas.com/p222-11815/uno_rules/"),
-            new BoardGame("BANG", "http://www.boardgamemaniac.com/uploads/11-d1c3084141.jpg", null)
+            new BoardGame("uno",
+                    "http://www.godisageek.com/wp-content/uploads/Uno-review1-1024x576.jpg",
+                    "https://view.publitas.com/31715/238002/pdfs/29e027e72495889a166168ef7381e724e457f61b.pdf",
+                    "https://view.publitas.com/31715/238026/pdfs/9a62cfa203a163ccae30cc9a02ca872e2321c5d6.pdf",
+                    "http://static1.gamespot.com/uploads/original/280/2802776/3097122-uno_logo_pr_announcement_20160719_4pm_cet_1468855694.png",
+                    2, 10,
+                    "4-6",
+                    30,
+                    new String[] {"popular", "family", "children", "tactical"}
+                    ),
+            new BoardGame("coup",
+                    "https://cf.geekdo-images.com/images/pic2016054_md.jpg",
+                    "https://view.publitas.com/31715/237992/pdfs/c27b7e30e500a8b9f1b7259db53f6eb5b974e76a.pdf",
+                    "https://view.publitas.com/31715/238019/pdfs/7249eafcc8b80beac36891431e3282f6803d9a0b.pdf",
+                    "http://cf.geekdo-images.com/images/pic2016054_t.jpg",
+                    2, 6,
+                    "5",
+                    15,
+                    new String[] {"Bluffing", "Card", "Deduction"}),
+
+            new BoardGame("Shadow Hunters", "http://cf.geekdo-images.com/images/pic1215982.jpg", "",
+                    "http://cf.geekdo-images.com/images/pic1215982_t.jpg",
+                    null,
+                    4, 8,
+                    "7-8",
+                    45,
+                    new String[] {"Adventure", "Buffing", "Card", "Deduction", "Horror", "Party Game"})
     };
+
+    public static List<BoardGame> boardGamesTemps = new ArrayList<>();
+
+    public String getRulesUrl() {
+        return rulesUrl;
+    }
+
     //    TutorialBlock[] tutorialBlocks;
 //
 //    public BoardGame(String name, String imageUrl, TutorialBlock[] tutorialBlocks) {

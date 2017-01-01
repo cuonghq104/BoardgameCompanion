@@ -17,14 +17,15 @@ import hq.cuong.boardgamecompanion.models.BoardGame;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends Fragment {
+public class RulesFragment extends Fragment {
+
+
+    BoardGame boardGame;
 
     @BindView(R.id.wv_detail)
     WebView wvDetail;
 
-    private BoardGame boardGame;
-
-    public DetailFragment() {
+    public RulesFragment() {
         // Required empty public constructor
     }
 
@@ -33,8 +34,9 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_boardgame_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, view);
+
         getData();
         setupUI();
         return view;
@@ -50,11 +52,13 @@ public class DetailFragment extends Fragment {
     }
 
     private void setupUI() {
+
         WebViewClient webViewClient = new WebViewClient();
         wvDetail.setWebViewClient(webViewClient);
         wvDetail.getSettings().setJavaScriptEnabled(true);
-        String url = "https://drive.google.com/viewerng/viewer?embedded=true&url=" + boardGame.getDetailUrl();
+        String url = "https://drive.google.com/viewerng/viewer?embedded=true&url=" + boardGame.getRulesUrl();
         wvDetail.loadUrl(url);
     }
+
 
 }

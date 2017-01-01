@@ -37,6 +37,6 @@ public class BoardgameAdapter extends RecyclerView.Adapter<BoardgameViewHolder> 
 
     @Override
     public int getItemCount() {
-        return BoardGame.boardGames.length;
+        return BoardGame.boardGamesTemps.size();
     }
 }
