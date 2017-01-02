@@ -3,27 +3,19 @@ package hq.cuong.boardgamecompanion;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebViewClient;
-import android.widget.Toast;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import hq.cuong.boardgamecompanion.adapters.SingleBoardGameAdapter;
+import butterknife.OnClick;
 import hq.cuong.boardgamecompanion.models.BoardGame;
-import hq.cuong.boardgamecompanion.models.TutorialBlock;
-
+import us.feras.mdv.MarkdownView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,17 +30,19 @@ public class RulesFragment extends Fragment {
 //    @BindView(R.id.wv_detail)
 //    WebView wvDetail;
 
-    @BindView(R.id.rv_rules)
-    RecyclerView rvRules;
-
+    //    @BindView(R.id.rv_rules)
+//    RecyclerView rvRules;
+    @BindView(R.id.mdv_rules)
+    MarkdownView mdvRules;
     @BindView(R.id.sv_rules)
     SearchView svRules;
+
 
     public RulesFragment() {
         // Required empty public constructor
     }
 
-    private SingleBoardGameAdapter adapter;
+//    private SingleBoardGameAdapter adapter;
 
 
     @Override
@@ -57,54 +51,16 @@ public class RulesFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_rules, container, false);
         ButterKnife.bind(this, view);
+//        mdvRules = (MarkdownView) view.findViewById(R.id.mdv_rules);
+//        svRules = (SearchView) view.findViewById(R.id.sv_rules);
 
         getData();
         setupUI();
-        addListener();
+//        addListener();
 
         return view;
     }
 
-    private void addListener() {
-        svRules.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                String text = svRules.getQuery().toString().toLowerCase();
-
-                ArrayList<TutorialBlock> list = new ArrayList<TutorialBlock>();
-                list.clear();
-                for (TutorialBlock tutorialBlock : BoardGame.boardGamesTemps.get(BoardGame.currentBoardGame).getTutorialBlocks()) {
-                    if (tutorialBlock.getTitle().toLowerCase().contains(text)) {
-                        list.add(tutorialBlock);
-                    }
-                }
-
-                for (TutorialBlock tutorialBlock : BoardGame.boardGamesTemps.get(BoardGame.currentBoardGame).getTutorialBlocks()) {
-                    for (String tag : tutorialBlock.getTags()) {
-                        if (tag.toLowerCase().contains(text) && !list.contains(tutorialBlock)) {
-                            list.add(tutorialBlock);
-                        }
-                    }
-//                    Toast.makeText(getContext(), String.format("Tutorial : %s", tutorialBlock.toString()), Toast.LENGTH_LONG).show();
-//                    Log.d(TAG, String.format("Tutorial : %s", tutorialBlock.toString()));
-                }
-
-                BoardGame.boardGamesTemps.get(BoardGame.currentBoardGame).list = list;
-
-//                adapter = new SingleBoardGameAdapter();
-//                rvRules.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-
-                return true;
-            }
-        });
-    }
 
     private void getData() {
 //        Bundle bundle = getArguments();
@@ -115,22 +71,50 @@ public class RulesFragment extends Fragment {
 
     }
 
+    @OnClick(R.id.btn_find_next)
+    public void findNext() {
+        mdvRules.findNext(true);
+    }
+    @OnClick(R.id.btn_find_back)
+    public void findBack(){
+        mdvRules.findNext(false);
+    }
     private void setupUI() {
+        svRules.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("ahihi", String.format("begin search : query  = %s", query));
+                mdvRules.findAllAsync(query);
+                mdvRules.findNext(true);
+                return false;
+            }
 
-//        TutorialBlock.list = Arrays.asList(TutorialBlock.TUTORIAL_BLOCKS);
-        BoardGame.boardGamesTemps.get(BoardGame.currentBoardGame).list = Arrays.asList(BoardGame.boardGamesTemps.get(BoardGame.currentBoardGame).getTutorialBlocks());
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        svRules.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        adapter = new SingleBoardGameAdapter();
 
-        rvRules.setLayoutManager(new LinearLayoutManager(getContext()));
+            }
+        });
+//        mdvRules.loadMarkdown("Here's our logo (hover to see the title text):\n" +
+//                "\n" +
+//                "Inline-style: \n" +
+//                "![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png \"Logo Title Text 1\")\n" +
+//                "\n" +
+//                "Reference-style: \n" +
+//                "![alt text][logo]\n" +
+//                "\n" +
+//                "[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png \"Logo Title Text 2\"");
+//        mdvRules.loadMarkdownFile("http://m.uploadedit.com/ba3s/1483326555496.txt");
+        mdvRules.loadMarkdownFile( "file:///android_asset/werewolf_one_night.txt",
+                "file:///android_asset/my_css.css");
+        //todo debugging
 
-        rvRules.setAdapter(adapter);
-
-//        WebViewClient webViewClient = new WebViewClient();
-//        wvDetail.setWebViewClient(webViewClient);
-//        wvDetail.getSettings().setJavaScriptEnabled(true);
-//        String url = "https://drive.google.com/viewerng/viewer?embedded=true&url=" + boardGame.getRulesUrl();
-//        wvDetail.loadUrl(url);
     }
 
 

@@ -63,6 +63,10 @@ public class BoardgameListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_boardgame_list, container, false);
         ButterKnife.bind(this, view);
+        svBoardGame = (SearchView) view.findViewById(R.id.sv_bgname);
+        rvList = (RecyclerView) view.findViewById(R.id.rv_list);
+//        btSearch.getAutoLinkMask();
+//        svBoardGame.clearFocus();
         setupUI();
         addListener();
         return view;
@@ -98,7 +102,7 @@ public class BoardgameListFragment extends Fragment {
 
     private void setupUI() {
         BoardGame.boardGamesTemps = Arrays.asList(BoardGame.boardGames);
-        EditText searchEditText = (EditText) svBoardGame.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        EditText searchEditText = (EditText) svBoardGame.findViewById(R.id.search_src_text);
         searchEditText.setTextColor(getResources().getColor(R.color.white));
         searchEditText.setHintTextColor(getResources().getColor(R.color.white));
         Typeface typeface = Typeface.DEFAULT_BOLD;
