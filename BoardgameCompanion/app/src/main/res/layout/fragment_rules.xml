@@ -34,11 +34,35 @@
 
     <!--</android.support.v4.view.ViewPager>-->
 
-    <android.support.v7.widget.RecyclerView
+    <!--<android.support.v7.widget.RecyclerView
 
         android:id="@+id/rv_rules"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+    </android.support.v7.widget.RecyclerView>-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.v7.widget.SearchView
+            android:id="@+id/sv_rules"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <us.feras.mdv.MarkdownView
+                android:id="@+id/mdv_rules"
+                android:layout_below="@id/sv_rules"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/btn_find_next"
+            android:layout_below="@id/sv_rules"
+            android:text="next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
 </FrameLayout>
