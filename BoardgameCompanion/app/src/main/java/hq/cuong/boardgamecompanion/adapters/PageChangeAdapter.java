@@ -15,7 +15,7 @@ import hq.cuong.boardgamecompanion.RulesFragment;
  */
 public class PageChangeAdapter extends FragmentStatePagerAdapter {
 
-    private static final int NUMBER_PAGES = 3;
+    private static final int NUMBER_PAGES = 2;
 
     public PageChangeAdapter(FragmentManager fm) {
         super(fm);
@@ -26,9 +26,9 @@ public class PageChangeAdapter extends FragmentStatePagerAdapter {
         if (position == 0) {
             return new BoardGameInformationFragment();
         }
-        else if (position == 1) {
-            return new DetailFragment();
-        }
+//        else if (position == 1) {
+//            return new DetailFragment();
+//        }
         else {
             return new RulesFragment();
         }
@@ -44,9 +44,9 @@ public class PageChangeAdapter extends FragmentStatePagerAdapter {
         switch(position) {
             default:
                 return "INFORMATION";
+//            case 1:
+//                return "DETAIL";
             case 1:
-                return "DETAIL";
-            case 2:
                 return "RULES";
         }
     }

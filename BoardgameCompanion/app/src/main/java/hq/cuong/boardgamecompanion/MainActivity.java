@@ -2,6 +2,7 @@ package hq.cuong.boardgamecompanion;
 
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import hq.cuong.boardgamecompanion.events.BackEvent;
 import hq.cuong.boardgamecompanion.events.ChangeFragmentEvent;
 import hq.cuong.boardgamecompanion.models.BoardGame;
 
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        ButterKnife.bind(this);
+        ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         changeFragment(new BoardgameListFragment(), false);
     }
@@ -56,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
         int boardgame = changeFragmentEvent.getBoardGame();
 
 
-        if (BoardGame.boardGamesTemps.get(boardgame).getDetailUrl().equals("")) {
-            Toast.makeText(this, BoardGame.boardGamesTemps.get(boardgame).getDetailUrl(), Toast.LENGTH_SHORT).show();
+        if (!BoardGame.boardGamesTemps.get(boardgame).getName().equals("Werewolf basic")) {
             Snackbar snackbar = Snackbar.make(llRoot, "Đang phát triển", Snackbar.LENGTH_SHORT);
             snackbar.show();
             return;
@@ -73,5 +75,13 @@ public class MainActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
 
         changeFragment(fragment, changeFragmentEvent.isAddToBackStack());
+    }
+
+    @Subscribe
+    public void backFromStack(BackEvent backEvent) {
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        fragmentManager.popBackStack();
     }
 }

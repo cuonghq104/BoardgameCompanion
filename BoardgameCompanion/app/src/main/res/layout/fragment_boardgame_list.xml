@@ -2,10 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_horizontal_margin"
     tools:context="hq.cuong.boardgamecompanion.BoardgameListFragment">
 
     <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/ll_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -13,22 +14,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/black"
+            android:padding="10dp">
             <Button
-                android:background="@drawable/back"
-                android:id="@+id/bt_back"
+                android:background="@drawable/menu"
+                android:id="@+id/bt_menu"
                 android:layout_width="@dimen/button_back_size"
                 android:layout_height="@dimen/button_back_size" />
 
             <android.support.v7.widget.SearchView
+                android:visibility="invisible"
                 android:id="@+id/sv_bgname"
-                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:textColor="@color/white" />
 
+            <Button
+                android:id="@+id/bt_search"
+                android:layout_width="@dimen/button_back_size"
+                android:layout_height="@dimen/button_back_size"
+                android:background="@drawable/magnifier"/>
+
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="5dp"
             android:id="@+id/rv_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

@@ -2,15 +2,22 @@ package hq.cuong.boardgamecompanion;
 
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hq.cuong.boardgamecompanion.adapters.PageChangeAdapter;
+import hq.cuong.boardgamecompanion.events.BackEvent;
 import hq.cuong.boardgamecompanion.models.BoardGame;
 
 
@@ -19,8 +26,17 @@ import hq.cuong.boardgamecompanion.models.BoardGame;
  */
 public class BoardGameFragment extends Fragment {
 
+    @BindView(R.id.tv_name)
+    TextView tvName;
+
     @BindView(R.id.vp_board_game)
     ViewPager vpBoardGame;
+
+    @BindView(R.id.tl_board_game)
+    TabLayout tlBoardGame;
+
+    @BindView(R.id.bt_menu)
+    Button btBack;
 
     private PageChangeAdapter adapter;
 
@@ -44,10 +60,20 @@ public class BoardGameFragment extends Fragment {
 
         int position = bundle.getInt(BoardGame.BOARD_GAME);
 
+        tvName.setText(BoardGame.boardGamesTemps.get(position).getName().toUpperCase());
+
         BoardGame.currentBoardGame = position;
 
         adapter = new PageChangeAdapter(getActivity().getSupportFragmentManager());
+
         vpBoardGame.setAdapter(adapter);
+
+
+    }
+
+    @OnClick(R.id.bt_menu)
+    public void backFromStack() {
+        EventBus.getDefault().post(new BackEvent());
     }
 
 }

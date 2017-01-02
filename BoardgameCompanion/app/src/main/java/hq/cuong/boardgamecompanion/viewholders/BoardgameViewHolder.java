@@ -30,8 +30,8 @@ public class BoardgameViewHolder extends RecyclerView.ViewHolder{
     @BindView(R.id.iv_boardgame)
     ImageView ivBoardGame;
 
-    @BindView(R.id.tv_name)
-    TextView tvName;
+//    @BindView(R.id.tv_name)
+//    TextView tvName;
 
     int position;
 
@@ -47,9 +47,9 @@ public class BoardgameViewHolder extends RecyclerView.ViewHolder{
 
         BoardGame boardGame = BoardGame.boardGamesTemps.get(position);
 
-        tvName.setText(boardGame.getName().toUpperCase());
+//        tvName.setText(boardGame.getName().toUpperCase());
 
-        Picasso.with(ivBoardGame.getContext()).load(boardGame.getImageUrl()).transform(new CircleTransform()).into(ivBoardGame);
+        Picasso.with(ivBoardGame.getContext()).load(boardGame.getThumbUrl()).into(ivBoardGame);
     }
 
     @OnClick(R.id.iv_boardgame)

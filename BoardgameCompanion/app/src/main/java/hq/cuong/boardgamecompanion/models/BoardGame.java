@@ -32,7 +32,11 @@ public class BoardGame {
 
     private String[] categories;
 
-    public BoardGame(String name, String imageUrl, String detailUrl, String rulesUrl, String thumbUrl, int minPlayer, int maxPlayer, String favoritePlayer, int playingTime, String[] categories) {
+    private String[] playType;
+
+    private TutorialBlock[] tutorialBlocks;
+
+    public BoardGame(String name, String imageUrl, String detailUrl, String rulesUrl, String thumbUrl, int minPlayer, int maxPlayer, String favoritePlayer, int playingTime, String[] categories, String[] playType, TutorialBlock[] tutorialBlocks) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.detailUrl = detailUrl;
@@ -43,6 +47,8 @@ public class BoardGame {
         this.favoritePlayer = favoritePlayer;
         this.playingTime = playingTime;
         this.categories = categories;
+        this.tutorialBlocks = tutorialBlocks;
+        this.playType = playType;
     }
 
     public String getThumbUrl() {
@@ -84,39 +90,87 @@ public class BoardGame {
 //    "https://cf.geekdo-images.com/images/pic2016054_md.jpg",
 //            "https://view.publitas.com/p222-11815/coup/page/1",
     public static BoardGame[] boardGames = {
-            new BoardGame("uno",
-                    "http://www.godisageek.com/wp-content/uploads/Uno-review1-1024x576.jpg",
+            new BoardGame("Werewolf basic",
+                    "http://www.spielbude.ch/platform/apps/shop/images/obj-100839-4904-original.jpg",
                     "https://view.publitas.com/31715/238002/pdfs/29e027e72495889a166168ef7381e724e457f61b.pdf",
                     "https://view.publitas.com/31715/238026/pdfs/9a62cfa203a163ccae30cc9a02ca872e2321c5d6.pdf",
-                    "http://static1.gamespot.com/uploads/original/280/2802776/3097122-uno_logo_pr_announcement_20160719_4pm_cet_1468855694.png",
+                    "http://boardgame.vn/uploads/u/boardgame.vn/product/2015/05/09/10/44/1431161080_935.jpg",
+                    8, 18,
+                    "11-15",
+                    30,
+                    new String[] {"buffing", "deduction", "horror", "murder", "mystery", "party"},
+                    new String[] {"partnership", "player elimination", "role playing", "voting"},
+                    new TutorialBlock[]  {
+                            TutorialBlock.createText("Trình tự game", "1. Giai đoạn ban đêm: Mọi người nhắm mắt, Quản Trò gọi vai trò đặc biệt nào thì vai trò ấy mở mắt và thực hiện chức năng của mình trong-yên-lặng. Trình tự gọi của Quản Trò như sau: Ăn trộm (Chỉ đêm đầu tiên)->Cupid (Chỉ đêm đầu tiên)->2 người yêu nhau (Chỉ đêm đầu tiên)->Bảo vệ->Sói->Tiên Tri->Phù Thủy->Thổi sáo->Những người bị thôi miên->Già Làng (Chỉ đêm đầu tiên)->Thợ Săn (Chỉ đêm đầu tiên)\n" +
+                                    "2. Ban ngày: Quản trò ra hiệu mọi người mở mắt, thông báo những ai đã chết đêm qua. Sau đó, dân làng bình bầu treo cổ một người bị nghi ngờ là Ma Sói trong ban ngày (Có thể hoãn không treo). Nếu có 2 người cùng có số phiếu bầu treo như nhau thì không ai bị treo cả.",
+                                    new String[] {"ban ngày", "ban đêm"}),
+                            TutorialBlock.createCombine("Tiên tri", "Mỗi đêm, khi được gọi dậy Tiên Tri sẽ chỉ một người. Nếu người đó là Sói Quản trò sẽ gật đầu.\n" , "http://2.bp.blogspot.com/_0Pz0L1XQR1k/TB-cjdrXS2I/AAAAAAAAAUw/PHjf91XHa9U/s320/fortune+teller.png",
+                                    new String[] {"sói", "mỗi đêm"}),
+                            TutorialBlock.createCombine("Thợ săn", "Khi thợ săn chết, dù là dưới bất kỳ hình thức nào cũng có thể chọn một người chơi khác và kéo hắn xuống “Tuyền đường” cùng Thợ Săn", "http://1.bp.blogspot.com/-n_Ol3Hw7OTY/VGxC-hcsFYI/AAAAAAAABXI/bU3urwBQKK8/s1600/hunter.png",
+                                    new String[] {"chết", "mỗi đêm"}),
+                            TutorialBlock.createCombine("Phù thủy", "Phù Thủy có hai bình thuốc: Một bình dùng để cứu một người, còn một bình dùng để giết một người. Mỗi đêm, Quản trò khi gọi Phù Thủy dậy sẽ cho Phù Thủy biết người bị giết bởi Sói đêm đó, và Phù Thủy được quyền quyết định xem có cứu người ấy hay không. Sau đó, quản trò sẽ hỏi xem Phù Thủy có dùng bình giết giết ai hay không. Một khi đã dùng bình thì Phù Thủy sẽ mất đi chức năng tương ứng, tuy nhiên vẫn được gọi dậy mỗi đêm và biết ai chết. Lưu ý: Nếu đêm đó Bảo Vệ đã Bảo Vệ đúng người thì Quản trò sẽ lắc tay, ra dấu là không ai chết cả.", "http://2.bp.blogspot.com/_0Pz0L1XQR1k/TB-d0OJIX_I/AAAAAAAAAU4/JNek6CgDWPM/s320/witch.png",
+                                    new String[] {"*"}),
+                            TutorialBlock.createCombine("Cupid", "Đầu mỗi ván chơi, Cupid sẽ được gọi dậy và chọn ra hai người yêu nhau. Cupid sau đó nhắm mắt lại và hai người yêu nhau sẽ được Quản Trò gọi dậy để biết mặt và Vai Trò của nhau. Nếu hai người thuộc hai phe khác nhau (Sói vs Dân) thì họ thành phe thứ ba với nhiệm vụ là hai người cuối cùng sống sót.", "http://4.bp.blogspot.com/_hqAyb8K3zT8/SJxPWu9T55I/AAAAAAAAA7c/lnxMUs99j-g/s320/cupid.jpg",
+                                    new String[] {"đêm đầu tiên"}),
+                            TutorialBlock.createCombine("Sói", "Mỗi đêm thức dậy, các Sói sẽ biết mặt lẫn nhau và sẽ cùng thống nhất giết một người. Sói có quyền không giết, và cũng có quyền tự giết lẫn nhau.", "http://i245.photobucket.com/albums/gg61/reakjean/Linh%20Tinh/WereWolf.jpg",
+                                    new String[] {"mỗi đêm"})
+                    }),
+            new BoardGame("uno",
+                    "http://boardgame.vn/uploads/u/boardgame.vn/product/2016/08/23/23/31/boa1471948306.JPG",
+                    "https://view.publitas.com/31715/238002/pdfs/29e027e72495889a166168ef7381e724e457f61b.pdf",
+                    "https://view.publitas.com/31715/238026/pdfs/9a62cfa203a163ccae30cc9a02ca872e2321c5d6.pdf",
+                    "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcToOshQ9dUlUDJcb6STup2h4bPsh3xJBAt5-AibCSHrv1f0Gyne",
                     2, 10,
                     "4-6",
                     30,
-                    new String[] {"popular", "family", "children", "tactical"}
-                    ),
+                    new String[] {"popular", "family", "children", "tactical"},
+                    new String[] {"hand management"},
+                    null),
             new BoardGame("coup",
-                    "https://cf.geekdo-images.com/images/pic2016054_md.jpg",
+                    "http://www.pubmeeple.com/wp-content/uploads/Coup3.jpg",
                     "https://view.publitas.com/31715/237992/pdfs/c27b7e30e500a8b9f1b7259db53f6eb5b974e76a.pdf",
                     "https://view.publitas.com/31715/238019/pdfs/7249eafcc8b80beac36891431e3282f6803d9a0b.pdf",
-                    "http://cf.geekdo-images.com/images/pic2016054_t.jpg",
+                    "https://images-na.ssl-images-amazon.com/images/I/81sNAwxviTL._SL1500_.jpg",
                     2, 6,
                     "5",
                     15,
-                    new String[] {"Bluffing", "Card", "Deduction"}),
+                    new String[] {"Bluffing", "Card", "Deduction"},
+                    new String[] {"Memory", "Player Elimination", "Take that"},
+                    null),
 
             new BoardGame("Shadow Hunters", "http://cf.geekdo-images.com/images/pic1215982.jpg", "",
                     "http://cf.geekdo-images.com/images/pic1215982_t.jpg",
-                    null,
+                    "http://boardgame.vn/uploads/u/boardgame.vn/product/2015/10/23/05/49/cov1445532563.jpg",
                     4, 8,
                     "7-8",
                     45,
-                    new String[] {"Adventure", "Buffing", "Card", "Deduction", "Horror", "Party Game"})
+                    new String[] {"Adventure", "Buffing", "Card", "Deduction", "Horror", "Party Game"},
+                    new String[] {"Dice Rolling", "Partnership", "Player Elimination"},
+                    null),
+            new BoardGame("Exploding Kittens", "", "", "", "http://is1.mzstatic.com/image/thumb/Purple20/v4/88/68/ca/8868cac2-e6f3-2239-43a5-3de6e4b637a2/source/512x512bb.jpg",
+                    2, 5,
+                    "4-5",
+                    20,
+                    new String[] {"Card Game", "Humour", "Animal",},
+                    new String[] {"Hand Management"},
+                    null
+                    )
     };
+
+    public List<TutorialBlock> list = new ArrayList<>();
 
     public static List<BoardGame> boardGamesTemps = new ArrayList<>();
 
+    public TutorialBlock[] getTutorialBlocks() {
+        return tutorialBlocks;
+    }
+
     public String getRulesUrl() {
         return rulesUrl;
+    }
+
+    public String[] getPlayType() {
+        return playType;
     }
 
     //    TutorialBlock[] tutorialBlocks;

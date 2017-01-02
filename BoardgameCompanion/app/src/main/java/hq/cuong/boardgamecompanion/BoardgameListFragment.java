@@ -3,6 +3,7 @@ package hq.cuong.boardgamecompanion;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,7 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
@@ -21,6 +24,7 @@ import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import hq.cuong.boardgamecompanion.adapters.BoardgameAdapter;
 import hq.cuong.boardgamecompanion.models.BoardGame;
 
@@ -40,12 +44,11 @@ public class BoardgameListFragment extends Fragment {
     @BindView(R.id.sv_bgname)
     SearchView svBoardGame;
 
-    private static final String[] SUGGESTION = {
-            "aaa",
-            "bbb",
-            "ccc",
-            "ddd"
-    };
+    @BindView(R.id.bt_search)
+    Button btSearch;
+
+    @BindView(R.id.ll_container)
+    LinearLayout llContainer;
 
     private SimpleCursorAdapter simpleCursorAdapter;
 
@@ -105,4 +108,18 @@ public class BoardgameListFragment extends Fragment {
         rvList.setLayoutManager(new GridLayoutManager(getContext(), 2));
     }
 
+    @OnClick(R.id.bt_search)
+    public void search() {
+        svBoardGame.setVisibility(View.VISIBLE);
+        btSearch.setVisibility(View.GONE);
+        svBoardGame.setFocusable(true);
+        svBoardGame.setIconified(false);
+        svBoardGame.requestFocusFromTouch();
+    }
+
+    @OnClick(R.id.bt_menu)
+    public void navigationDrawer() {
+        Snackbar snackbar = Snackbar.make(llContainer, "Đang phát triển", Snackbar.LENGTH_SHORT);
+        snackbar.show();
+    }
 }

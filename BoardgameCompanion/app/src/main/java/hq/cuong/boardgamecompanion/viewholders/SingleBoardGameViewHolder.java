@@ -50,7 +50,7 @@ public class SingleBoardGameViewHolder extends RecyclerView.ViewHolder {
             tvTitle.setVisibility(View.GONE);
 
             tvContent.setVisibility(View.GONE);
-            
+
             ivBoardGame.setVisibility(View.VISIBLE);
             ivBoardGame.setImageResource(R.drawable.previous);
             Picasso.with(ivBoardGame.getContext()).load(tutorialBlock.getImageUrl()).into(ivBoardGame);

@@ -40,6 +40,9 @@ public class BoardGameInformationFragment extends Fragment {
     @BindView(R.id.tv_categories)
     TextView tvCategories;
 
+    @BindView(R.id.tv_play_type)
+    TextView tvPlayType;
+
     BoardGame boardGame;
 
     public BoardGameInformationFragment() {
@@ -87,7 +90,19 @@ public class BoardGameInformationFragment extends Fragment {
             }
         }
 
-        tvCategories.setText(String.format("Categories : %s", categories));
+        tvCategories.setText(String.format("%s", categories));
+
+        String playType = "";
+
+        size = boardGame.getPlayType().length;
+        for (int i = 0; i < size; i++) {
+            playType += boardGame.getPlayType()[i];
+            if (i != size - 1) {
+                playType += " , ";
+            }
+        }
+
+        tvPlayType.setText(playType);
     }
 
 }

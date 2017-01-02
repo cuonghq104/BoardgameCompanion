@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/black"
     tools:context="hq.cuong.boardgamecompanion.MainActivity"
     android:id="@+id/ll_root">
 
@@ -34,7 +34,6 @@
     <!--</LinearLayout>-->
 
         <FrameLayout
-            android:layout_marginTop="10dp"
             android:id="@+id/fl_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
